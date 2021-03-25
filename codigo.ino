@@ -9,11 +9,12 @@ Premissas;
   *pedal para acionamento manual com as mãos livres.
   *comando bimanual direito
   *comando bimanual esquerdo
-  *chave seletora 1/3 auto
-  *chave seletora 2/3 automático
+  *chave seletora 1/4 automático
+  *chave seletora 2/4 manual com alimentador
+  *chave seletora 3/4 manual sem alimentador
   *chave de emergência
   *fim de curso da prensa
-  *Botão Ligar motor
+  *Botão alterar visor display
  
   "saídas"
   *rele de acionamento prensa
@@ -26,38 +27,50 @@ Premissas;
     modo parado
       
       chave de emergência fechada
-      chave seletora de posição no modo 3/3 maquina parada
-        - Acionamento do Botão Ligar motor. -- Liga motor - se estiver desligado
-        - Pressionar dois segundos -- Desliga motor se estiver ligado
-            Rele do motor é ativado / desativado
+      chave seletora de posição no modo 4/4 maquina parada -(todas as portas seletora aberta)
+        - Desligar motor se estiver ligado
+	- reseta motor caso emergencia ou falta de energia 
+        - Botão alterar o display entre os valores do potenciometro, apos 60 segundos ele volta para contagem
+		-isso facilita leitura do potenciometro e possibilita setup mais rapida em repetições
             
       *visor com contagem de 8 dígitos.
       contagem no limite de 99.999.999 (noventa e nove milhões novecentos e noventa e nove mil novecentos e noventa e nove peças).
       será somado mais uma peça a cada prensagem
       memoria será mantida após ser desligado
         -como zerar
-                    botão bimanual direito ou esquerdo prescionado por mais de 5 segundos
+                    botão alterar modo display prescionado por mais de 5 segundos
     
-    modo manual :
+    modo manual sem Alimentador 3/4 :
       chave de emergência fechada
-      chave seletora de posição no modo 2/3 manual para controle de batida uma por vez
-        -Acionamento por pedal ou bimanual - bimanual com sistema individual para evitar sabotagem
+      chave seletora de posição no modo 3/4 manual para controle de batida uma por vez
+      	-Liga o motor se estiver desligado aguarda X segundo para atingir velocidade de trabalho
+        -Acionamento por pedal ou bimanual - bimanual com sistema individual 
+		-desce prensa 1 vez e aguarda o tempo do pontenciometro prensa antes da proxima leitura de comando
 
-        rele indicador de modo manual ativo
-	      rele indicador emergencia modo trabalho
-
-    modo automático:
+        rele indicador de modo Trabalho ativo
+	      
+	      
+    modo manual com Alimentador 2/4 :
       chave de emergência fechada
-      chave seletora de posição no modo 1/3 automático
-        -Acionamento para o modo automatico será executado mantendo um dos 
-        botões do bicomando pressionado por 3 prensagens seguidas,
+      chave seletora de posição no modo 2/4 manual para controle de batida uma por vez com alimentador
+      	-Liga o motor se estiver desligado aguarda X segundo para atingir velocidade de trabalho
+        -Acionamento por pedal ou bimanual - bimanual com sistema individual 
+		-desce prensa 1 vez e aguarda o tempo do pontenciometro prensa 
+		-aciona o alimentador e aguarda o tempo do potenciometro do alimentador antes da proxma leitura
+
+        rele indicador de modo Trabalho ativo
+	    
+    modo automático 1/4:
+      chave de emergência fechada
+      chave seletora de posição no modo 1/4 automático
+        -Acionamento para o modo automatico será executado descidas e alimentação dois reles conforme  ajuste de ponteciometros
+	-mantendo um dos botões do bicomando pressionado por 3 ou mais prensagens seguidas o auto trava
         caso um dos botões for prescionado e solto a prensa vai descer 
-        uma ou duas vezes e parar se o botão estiver solto antes do inicio da
-        terceira batida. 
+        uma ou duas vezes e parar se o botão estiver solto antes do valor determinado. 
         -O acionamento automatico pode ser executado direto pressionado ambos botões bimanual simultaneamente.
 
-        rele indicador de modo automático ativo
-	      rele indicador emergencia modo trabalho 
+        
+	      rele indicador trabalho ativo
 
         -O processo automático pode ser interrompido se:
           -pressionado qualquer botão bimanual
@@ -72,10 +85,13 @@ Premissas;
     modo emergência:
       chave de emergência aberta
 
-      para motor
-      para prensa em cima
+      parar motor
+      parar prensa em cima
       rele indicador de modo emergência acionado 
       não lê nenhum dos botões 
+      registra parada de emergencia ou queda de energia e trava funções aguardando voltar chave seletora de posição no modo 4/4 parado
+      
+      Toda parte eletrica cortada, mantendo apenas a fonte de 5V dc
      
 
   Este arquivo foi criado por Cesar Costa e Samuel Oliveira Costa
