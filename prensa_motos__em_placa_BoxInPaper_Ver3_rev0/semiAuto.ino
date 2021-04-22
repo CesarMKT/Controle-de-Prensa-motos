@@ -1,0 +1,3 @@
+void semiAuto(){
+  
+}//end semiAuto
