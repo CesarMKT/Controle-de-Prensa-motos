@@ -28,8 +28,8 @@ void parado() {
         displayP2(pot2);
         delay(200);
       }//end While pot2
+      displayN(contador);
     }//end if display pot 1 e 2
-    displayN(contador);
     delay(32);
     //    -como zerar display
     //                    botão bimanual prescionado por mais de 10 segundos
