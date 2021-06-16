@@ -1,53 +1,58 @@
-
-
-void displayN(unsigned long valor) { //exibe o numero na tela
+void displayN(unsigned long valor)
+{ //exibe o numero na tela
   lc.refreshSegments();
   delay(1);
 
-  lc.clearMatrix();   //clear the matrix just to be sure there is nothing on it
+  lc.clearMatrix(); //clear the matrix just to be sure there is nothing on it
   byte digito = 0;
   divisor = valor;
-  do {
+  do
+  {
     unidade = divisor % 10;
-    lc.setDigit(0, digito, unidade , false);
+    lc.setDigit(0, digito, unidade, false);
     divisor = divisor / 10;
     digito++;
   } while (divisor > 0);
 }
 
-void displayP1(unsigned  long valor) { // escreve 'P1' e exibe numero na tela
+void displayP1(unsigned long valor)
+{                       // escreve 'P1' e exibe numero na tela
   lc.refreshSegments(); // reseta matrix
   delay(1);
-  lc.clearMatrix();   //clear the matrix just to be sure there is nothing on it
-  lc.setChar(0, 7, 'P' , false);
-  lc.setDigit(0, 6, 1 , false);
+  lc.clearMatrix(); //clear the matrix just to be sure there is nothing on it
+  lc.setChar(0, 7, 'P', false);
+  lc.setDigit(0, 6, 1, false);
   byte digito = 0;
   divisor = valor;
-  do {
+  do
+  {
     unidade = divisor % 10;
-    lc.setDigit(0, digito, unidade , false);
+    lc.setDigit(0, digito, unidade, false);
     divisor = divisor / 10;
     digito++;
   } while (divisor > 0);
 }
 
-void displayP2(unsigned  long valor) {// escreve 'P2' e exibe numero na tela
+void displayP2(unsigned long valor)
+{                       // escreve 'P2' e exibe numero na tela
   lc.refreshSegments(); // reseta matrix
   delay(1);
-  lc.clearMatrix();   //clear the matrix just to be sure there is nothing on it
-  lc.setChar(0, 7, 'P' , false);
-  lc.setDigit(0, 6, 2 , false);
+  lc.clearMatrix(); //clear the matrix just to be sure there is nothing on it
+  lc.setChar(0, 7, 'P', false);
+  lc.setDigit(0, 6, 2, false);
   byte digito = 0;
   divisor = valor;
-  do {
+  do
+  {
     unidade = divisor % 10;
-    lc.setDigit(0, digito, unidade , false);
+    lc.setDigit(0, digito, unidade, false);
     divisor = divisor / 10;
     digito++;
   } while (divisor > 0);
 }
 
-void displayOff() {
+void displayOff()
+{
 
   lc.refreshSegments();
 

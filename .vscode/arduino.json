@@ -1,0 +1,6 @@
+{
+    "sketch": "prensa_motos__em_placa_BoxInPaper_Ver3_rev7\\prensa_motos__em_placa_BoxInPaper_Ver3_rev7.ino",
+    "board": "arduino:avr:uno",
+    "programmer": "arduino:avrisp",
+    "port": "COM2"
+}

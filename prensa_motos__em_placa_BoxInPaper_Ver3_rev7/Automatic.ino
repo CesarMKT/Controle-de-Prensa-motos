@@ -1,4 +1,5 @@
-void automatico() {
+void automatico()
+{
 
   // zerar variaveis na trocca de chave para nova posição.
   contadorAuto = 0;
@@ -13,101 +14,136 @@ void automatico() {
   bool pedal = LOW;
   bool modoAuto = LOW;
 
-  atualizar() ;  //atualizar reles  antes de entrar no laço que trava pela chave seletora
+  atualizar(); //atualizar reles  antes de entrar no laço que trava pela chave seletora
 
   //chave seletora 1/4 automático A0 = 14  e A1 = 15  LOW
-  while (!TstBit(PINC, 0) && !TstBit(PINC, 1)) {
+  while (!TstBit(PINC, 0) && !TstBit(PINC, 1))
+  {
+
+    //    -como zerar display
+    //                    botão do alimentador prescionado pelo tempo da variavel pré selecionada
+
+    if (!TstBit(PIND, 4) && !btDireito)
+    { //se o botão é prescionado e a variavel é LOW
+      btDireito = HIGH;
+      tempoPressionado = millis();
+    }
+    if (TstBit(PIND, 4) && btDireito)
+      btDireito = LOW; // se o botão for solto variavel passa a ser LOW
+    if (!TstBit(PIND, 4) && btDireito && millis() - tempoPressionado >= tempoZerar)
+    {
+      contador = 0; //zerar contador
+      if (contador != EEPROMReadLong(marcador))
+        EEPROMWriteLong(marcador, contador); // verifica se o valor é diferente no endereço, se for atualiza
+      displayN(contador);
+      tempoPressionado = millis();
+    }
+    //fim zerar display
 
     //ajustar tempo de alimentador/////////////////////////////
-    while (!TstBit(PIND, 6)) { // soma 1 unidade pot 1
+    while (!TstBit(PIND, 6))
+    { // soma 1 unidade pot 1
       pot1 = pot1 + 20;
-      if (pot1 >= maxAlimentador)pot1 = maxAlimentador;
+      if (pot1 >= maxAlimentador)
+        pot1 = maxAlimentador;
       displayP1(pot1);
       delay(120);
-    }//end while pot1
-    while (!TstBit(PIND, 5)) {
+    } //end while pot1
+    while (!TstBit(PIND, 5))
+    {
       pot1 = pot1 - 20;
-      if (pot1 <= minAlimentador)pot1 = minAlimentador;
+      if (pot1 <= minAlimentador)
+        pot1 = minAlimentador;
       displayP1(pot1);
       delay(120);
-    }//end While pot1
-    if (!TstBit(PIND, 3)) displayN(contador);// volta/atualiza o numerador no display
+    } //end While pot1
+    if (!TstBit(PIND, 3))
+      displayN(contador); // volta/atualiza o numerador no display
     //ajustar tempo de alimentador////////////////////////////
 
     sair = HIGH;
     contadorAuto = 0;
 
-    if (offSensor) {
+    if (offSensor)
+    {
       offSensor = LOW;
       ligaPrensa = LOW;
     }
-    if (millis() - timerAlimentador >= pot1)ligaAlimentador = LOW;
-    atualizar() ;
+    if (millis() - timerAlimentador >= pot1)
+      ligaAlimentador = LOW;
+    atualizar();
 
-   
-    if (TstBit(PIND, BtParada ))chaveAuto = LOW;
+    if (TstBit(PIND, BtParada))
+      chaveAuto = LOW;
 
-    if (!TstBit(PIND, BtParada ) && !chaveAuto ) {
+    if (!TstBit(PIND, BtParada) && !chaveAuto)
+    {
       modoAuto = HIGH;
       chaveAuto = HIGH;
     }
 
-    while (modoAuto) {
-      if (TstBit(PIND, BtParada ))chaveAuto = LOW; //confirme que botão foi solto
-      if (!chaveAuto && contadorAuto < limiteContadorAuto) { // confirmar numero minimo de batidas para travar no modo auto
+    while (modoAuto)
+    {
+      if (TstBit(PIND, BtParada))
+        chaveAuto = LOW; //confirme que botão foi solto
+      if (!chaveAuto && contadorAuto < limiteContadorAuto)
+      { // confirmar numero minimo de batidas para travar no modo auto
         modoAuto = LOW;
         sair = LOW;
       }
-      if (contadorAuto > limiteContadorAuto) { // confirme numero minimo de batidas para indicar modo auto travado
+      if (contadorAuto > limiteContadorAuto)
+      { // confirme numero minimo de batidas para indicar modo auto travado
         ligaLuz = HIGH;
       }
 
-      if (!TstBit(PIND, BtParada ) && !chaveAuto) {
+      if (!TstBit(PIND, BtParada) && !chaveAuto)
+      {
         chaveAuto = HIGH;
         modoAuto = LOW;
         ligaLuz = LOW;
         sair = LOW; // return;
       }
-      if (TstBit(PINC, 0) || TstBit(PINC, 1)) return; //  sai se a chave seletora for alterada
+      if (TstBit(PINC, 0) || TstBit(PINC, 1))
+        return; //  sai se a chave seletora for alterada
 
-      if (millis() -  timerAlimentador  >= pot1 * 2) {
+      if (millis() - timerAlimentador >= pot1 * 2)
+      {
         btPedal = HIGH;
         ligaPrensa = HIGH;
         ligaAlimentador = HIGH;
-
       }
-      if (offSensor) {
+      if (offSensor)
+      {
         offSensor = LOW;
         ligaPrensa = LOW;
       }
-      if (intSensor && ligaPrensa) {
+      if (intSensor && ligaPrensa)
+      {
 
         sensor = HIGH;
         intSensor = LOW;
 
         //Alimentador ligar quando prensa chegar no sensor e ficar ligado pelo periodo de tempo do potenciometro
-        if ( millis() - timerAlimentador >= pot1 * 2 ) {
+        if (millis() - timerAlimentador >= pot1 * 2)
+        {
 
           btAlimentador = HIGH;
           timerAlimentador = millis();
         }
-
       }
-      if (millis() - timerAlimentador >= pot1 && sensor) {
-        contar();//conta as peças produzidas
+      if (millis() - timerAlimentador >= pot1 && sensor)
+      {
+        contar(); //conta as peças produzidas
         sensor = LOW;
         ligaAlimentador = LOW;
-        if (!sair)return;
+        if (!sair)
+          return;
       }
 
-      atualizar();//atualiza reles
+      atualizar(); //atualiza reles
 
+    } //end while modoAuto
 
+  } //end while seletor
 
-
-    }//end while modoAuto
-
-
-  }//end while seletor
-
-}//end automatico
+} //end automatico

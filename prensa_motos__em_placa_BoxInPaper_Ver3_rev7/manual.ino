@@ -1,4 +1,5 @@
-void manual() {
+void manual()
+{
 
   btPedal = LOW;
   btAlimentador = LOW;
@@ -14,33 +15,34 @@ void manual() {
   //
   //}
 
-
-
   //chave seletora 3/4 manual sem alimentador A0 = 14 HIGH A1=15 LOW
-  while (TstBit(PINC, 0) && !TstBit(PINC, 1)) {
+  while (TstBit(PINC, 0) && !TstBit(PINC, 1))
+  {
 
     //      chave seletora de posição no modo 3/4 manual para controle de batida uma por vez
 
     //        -Acionamento por pedal ou bimanual - bimanual com sistema individual
-    if (bimanual()  && millis() - timerAlimentador >= pot1 * 2) {
+    if (bimanual() && millis() - timerAlimentador >= pot1 * 2)
+    {
       ligaPrensa = HIGH;
     }
 
-    if (intSensor && ligaPrensa) {
-      contar();//conta as peças produzidas
+    if (intSensor && ligaPrensa)
+    {
+      contar(); //conta as peças produzidas
 
       intSensor = LOW;
       ligaPrensa = LOW;
-
     }
 
     //Alimentador ligar e ficar ligado pelo periodo de tempo do potenciometro
-    while (!TstBit(PIND, BtAlimentador)) {
+    while (!TstBit(PIND, BtAlimentador))
+    {
       ligaAlimentador = LOW;
-      atualizar();//atualiza reles
+      atualizar(); //atualiza reles
     }
     ligaAlimentador = HIGH;
-    atualizar();//atualiza reles
+    atualizar(); //atualiza reles
 
-  }//end while
-}//end manual
+  } //end while
+} //end manual
