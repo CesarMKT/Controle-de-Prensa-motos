@@ -43,7 +43,7 @@ void automatico()
     //ajustar tempo de alimentador/////////////////////////////
     while (!TstBit(PIND, 6))
     { // soma 1 unidade pot 1
-      pot1 = pot1 + 20;
+      if(displayTempo)pot1 = pot1 + 20;
       if (pot1 >= maxAlimentador)
         pot1 = maxAlimentador;
       displayP1(pot1);
@@ -51,13 +51,13 @@ void automatico()
     } //end while pot1
     while (!TstBit(PIND, 5))
     {
-      pot1 = pot1 - 20;
+      if(displayTempo)pot1 = pot1 - 20;
       if (pot1 <= minAlimentador)
         pot1 = minAlimentador;
       displayP1(pot1);
       delay(120);
     } //end While pot1
-    if (!TstBit(PIND, 3))
+    if (!TstBit(PIND, 4))  //exibe o número de peças  prenssada
       displayN(contador); // volta/atualiza o numerador no display
     //ajustar tempo de alimentador////////////////////////////
 
